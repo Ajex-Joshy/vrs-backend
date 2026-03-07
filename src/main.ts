@@ -1,4 +1,10 @@
 import express from "express";
+import { CreatePaymentUseCase } from "@application/usecases/payment/create-payment.usecase.js";
+import { CancelRentalUseCase } from "@application/usecases/rental/cancel-rental.usecase.js";
+import { CreateRentalUseCase } from "@application/usecases/rental/create-rental.usecase.js";
+import { ReturnVehicleUseCase } from "@application/usecases/rental/return-vehicle.usecase.js";
+import { CreateVehicleUseCase } from "@application/usecases/vehicle/create-vehicle.usecase.js";
+import { ListVehiclesUseCase } from "@application/usecases/vehicle/list-vehicles.usecase.js";
 import { env } from "@config/env.config.js";
 import { LoginUseCase } from "@application/usecases/auth/login.usecase.js";
 import { RegisterUseCase } from "@application/usecases/auth/register.usecase.js";
@@ -13,12 +19,21 @@ import {
   disconnectPrisma,
 } from "@infrastructure/database/prisma/prisma.client.js";
 import { MongooseLogRepository } from "@infrastructure/repositories/mongoose-log.repository.js";
+import { PrismaPaymentRepository } from "@infrastructure/repositories/prisma-payment.repository.js";
+import { PrismaRentalRepository } from "@infrastructure/repositories/prisma-rental.repository.js";
 import { PrismaUserRepository } from "@infrastructure/repositories/prisma-user.repository.js";
+import { PrismaVehicleRepository } from "@infrastructure/repositories/prisma-vehicle.repository.js";
 import { errorHandlerMiddleware } from "@presentation/http/middlewares/error-handler.middleware.js";
 import { createAuthRouter } from "@presentation/http/routes/auth.routes.js";
+import { createPaymentRouter } from "@presentation/http/routes/payment.routes.js";
+import { createRentalRouter } from "@presentation/http/routes/rental.routes.js";
+import { createVehicleRouter } from "@presentation/http/routes/vehicle.routes.js";
 
 const app = express();
 const userRepository = new PrismaUserRepository();
+const vehicleRepository = new PrismaVehicleRepository();
+const rentalRepository = new PrismaRentalRepository();
+const paymentRepository = new PrismaPaymentRepository();
 const logRepository = new MongooseLogRepository();
 
 app.use(express.json());
@@ -30,8 +45,45 @@ const loginUseCase = new LoginUseCase(
   passwordService,
   jwtService,
 );
+const createVehicleUseCase = new CreateVehicleUseCase(vehicleRepository);
+const listVehiclesUseCase = new ListVehiclesUseCase(vehicleRepository);
+const createRentalUseCase = new CreateRentalUseCase(
+  rentalRepository,
+  vehicleRepository,
+  userRepository,
+  logRepository,
+);
+const cancelRentalUseCase = new CancelRentalUseCase(
+  rentalRepository,
+  vehicleRepository,
+  logRepository,
+);
+const returnVehicleUseCase = new ReturnVehicleUseCase(
+  rentalRepository,
+  vehicleRepository,
+  logRepository,
+);
+const createPaymentUseCase = new CreatePaymentUseCase(
+  paymentRepository,
+  rentalRepository,
+  logRepository,
+);
 
 app.use("/auth", createAuthRouter(registerUseCase, loginUseCase, jwtService));
+app.use(
+  "/vehicles",
+  createVehicleRouter(createVehicleUseCase, listVehiclesUseCase, jwtService),
+);
+app.use(
+  "/rentals",
+  createRentalRouter(
+    createRentalUseCase,
+    cancelRentalUseCase,
+    returnVehicleUseCase,
+    jwtService,
+  ),
+);
+app.use("/payments", createPaymentRouter(createPaymentUseCase, jwtService));
 
 app.get("/health", (_request, response) => {
   response.status(200).json({
