@@ -4,7 +4,10 @@ import { LoginUseCase } from "./application/usecases/auth/login.usecase.js";
 import { RegisterUseCase } from "./application/usecases/auth/register.usecase.js";
 import { JwtService } from "./infrastructure/auth/jwt.service.js";
 import { PasswordService } from "./infrastructure/auth/password.service.js";
-import { connectMongo, disconnectMongo } from "./infrastructure/database/mongoose/mongoose.client.js";
+import {
+  connectMongo,
+  disconnectMongo,
+} from "./infrastructure/database/mongoose/mongoose.client.js";
 import {
   connectPrisma,
   disconnectPrisma,
@@ -22,7 +25,11 @@ app.use(express.json());
 const passwordService = new PasswordService();
 const jwtService = new JwtService();
 const registerUseCase = new RegisterUseCase(userRepository, passwordService);
-const loginUseCase = new LoginUseCase(userRepository, passwordService, jwtService);
+const loginUseCase = new LoginUseCase(
+  userRepository,
+  passwordService,
+  jwtService,
+);
 
 app.use("/auth", createAuthRouter(registerUseCase, loginUseCase, jwtService));
 
