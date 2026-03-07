@@ -29,7 +29,7 @@ export class User {
     email: string;
     phone: string;
     gender: Gender;
-    paswordHash: string;
+    passwordHash: string;
   }): User {
     const now = new Date();
 
@@ -45,7 +45,7 @@ export class User {
       now,
       false,
       Role.user(),
-      data.paswordHash,
+      data.passwordHash,
     );
   }
 
@@ -87,6 +87,18 @@ export class User {
     return this._isBlocked;
   }
 
+  get role(): Role {
+    return this._role;
+  }
+
+  get gender(): Gender {
+    return this._gender;
+  }
+
+  get passwordHashValue(): string {
+    return this.passwordHash;
+  }
+
   // ---------------- DOMAIN METHODS ----------------
 
   block(): void {
@@ -97,7 +109,7 @@ export class User {
 
   unblock(): void {
     this._isBlocked = false;
-    this._status = UserStatus.blocked();
+    this._status = UserStatus.active();
     this._updatedAt = new Date();
   }
 
