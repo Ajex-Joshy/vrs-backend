@@ -11,6 +11,15 @@ export class Role {
     return new Role("ADMIN");
   }
 
+  static fromValue(value: RoleType): Role {
+    switch (value) {
+      case "USER":
+        return Role.user();
+      case "ADMIN":
+        return Role.admin();
+    }
+  }
+
   getValue(): RoleType {
     return this.value;
   }

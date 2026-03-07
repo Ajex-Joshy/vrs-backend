@@ -15,6 +15,17 @@ export class UserStatus {
     return new UserStatus("SUSPENDED");
   }
 
+  static fromValue(value: UserStatusType): UserStatus {
+    switch (value) {
+      case "ACTIVE":
+        return UserStatus.active();
+      case "BLOCKED":
+        return UserStatus.blocked();
+      case "SUSPENDED":
+        return UserStatus.suspended();
+    }
+  }
+
   getValue(): UserStatusType {
     return this.value;
   }

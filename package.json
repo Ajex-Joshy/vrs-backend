@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "nodemon --watch src --ext ts,json --exec tsx src/main.ts",
     "build": "tsc",
-    "start": "node dist/main.js"
+    "start": "node dist/main.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate:dev": "prisma migrate dev",
+    "prisma:migrate:deploy": "prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
@@ -23,13 +26,17 @@
     "globals": "^17.4.0",
     "jiti": "^2.6.1",
     "nodemon": "^3.1.14",
+    "prisma": "^6.16.2",
     "tsx": "^4.21.0",
     "typescript-eslint": "^8.56.1"
   },
   "dependencies": {
+    "@prisma/client": "^6.16.2",
     "bcryptjs": "^3.0.3",
+    "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.2.4",
     "zod": "^4.3.6"
   }
 }
