@@ -17,7 +17,18 @@ export class VehicleStatus {
     return new VehicleStatus("MAINTENANCE");
   }
 
-  getValue(): string {
+  static fromValue(value: "AVAILABLE" | "RENTED" | "MAINTENANCE"): VehicleStatus {
+    switch (value) {
+      case "AVAILABLE":
+        return VehicleStatus.available();
+      case "RENTED":
+        return VehicleStatus.rented();
+      case "MAINTENANCE":
+        return VehicleStatus.maintenance();
+    }
+  }
+
+  getValue(): "AVAILABLE" | "RENTED" | "MAINTENANCE" {
     return this.value;
   }
 

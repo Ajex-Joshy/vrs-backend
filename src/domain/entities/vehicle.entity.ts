@@ -18,6 +18,9 @@ export class Vehicle {
     model: string,
     pricePerDay: number,
     registrationNumber: string,
+    status: VehicleStatus = VehicleStatus.available(),
+    createdAt: Date = new Date(),
+    updatedAt: Date = new Date(),
   ) {
     if (!name) throw new Error("Vehicle name is required");
     if (!brand) throw new Error("Vehicle brand is required");
@@ -31,9 +34,9 @@ export class Vehicle {
     this._model = model;
     this._pricePerDay = pricePerDay;
     this._registrationNumber = registrationNumber;
-    this._status = VehicleStatus.available();
-    this._createdAt = new Date();
-    this._updatedAt = new Date();
+    this._status = status;
+    this._createdAt = createdAt;
+    this._updatedAt = updatedAt;
   }
 
   // -------- GETTERS --------

@@ -21,7 +21,20 @@ export class RentalStatus {
     return new RentalStatus("CANCELLED");
   }
 
-  getValue(): string {
+  static fromValue(value: "PENDING" | "ACTIVE" | "COMPLETED" | "CANCELLED"): RentalStatus {
+    switch (value) {
+      case "PENDING":
+        return RentalStatus.pending();
+      case "ACTIVE":
+        return RentalStatus.active();
+      case "COMPLETED":
+        return RentalStatus.completed();
+      case "CANCELLED":
+        return RentalStatus.cancelled();
+    }
+  }
+
+  getValue(): "PENDING" | "ACTIVE" | "COMPLETED" | "CANCELLED" {
     return this.value;
   }
 

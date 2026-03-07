@@ -21,7 +21,20 @@ export class PaymentStatus {
     return new PaymentStatus("REFUNDED");
   }
 
-  getValue(): string {
+  static fromValue(value: "PENDING" | "PAID" | "FAILED" | "REFUNDED"): PaymentStatus {
+    switch (value) {
+      case "PENDING":
+        return PaymentStatus.pending();
+      case "PAID":
+        return PaymentStatus.paid();
+      case "FAILED":
+        return PaymentStatus.failed();
+      case "REFUNDED":
+        return PaymentStatus.refunded();
+    }
+  }
+
+  getValue(): "PENDING" | "PAID" | "FAILED" | "REFUNDED" {
     return this.value;
   }
 
