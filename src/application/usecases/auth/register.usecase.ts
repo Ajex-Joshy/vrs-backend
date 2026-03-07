@@ -1,10 +1,10 @@
 import { randomUUID } from "node:crypto";
-import type { RegisterDto } from "../../dtos/auth/register.dto.js";
-import { UserExistsException } from "../../errors/auth/user-exists.exception.js";
-import { User } from "../../../domain/entities/user.entity.js";
-import type { IUserRepository } from "../../../domain/repositories/user.repository.js";
-import { Gender } from "../../../domain/value-objects/gender.js";
-import type { PasswordService } from "../../../infrastructure/auth/password.service.js";
+import type { RegisterDto } from "@application/dtos/auth/register.dto.js";
+import { UserExistsException } from "@application/errors/auth/user-exists.exception.js";
+import { User } from "@domain/entities/user.entity.js";
+import type { IUserRepository } from "@domain/repositories/user.repository.js";
+import { Gender } from "@domain/value-objects/gender.js";
+import type { PasswordService } from "@infrastructure/auth/password.service.js";
 
 const genderMap = {
   MALE: () => Gender.male(),

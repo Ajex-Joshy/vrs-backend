@@ -1,9 +1,9 @@
-import type { ReturnVehicleDto } from "../../dtos/rental/return-vehicle.dto.js";
-import { InvalidRentalStateException } from "../../errors/common/invalid-rental-state.exception.js";
-import { ResourceNotFoundException } from "../../errors/common/resource-not-found.exception.js";
-import type { ILogRepository } from "../../../domain/repositories/log.repository.js";
-import type { IRentalRepository } from "../../../domain/repositories/rental.repository.js";
-import type { IVehicleRepository } from "../../../domain/repositories/vehicle.repository.js";
+import type { ReturnVehicleDto } from "@application/dtos/rental/return-vehicle.dto.js";
+import { InvalidRentalStateException } from "@application/errors/common/invalid-rental-state.exception.js";
+import { ResourceNotFoundException } from "@application/errors/common/resource-not-found.exception.js";
+import type { ILogRepository } from "@domain/repositories/log.repository.js";
+import type { IRentalRepository } from "@domain/repositories/rental.repository.js";
+import type { IVehicleRepository } from "@domain/repositories/vehicle.repository.js";
 
 export class ReturnVehicleUseCase {
   constructor(

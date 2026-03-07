@@ -1,8 +1,8 @@
 import { randomUUID } from "node:crypto";
-import type { CreateVehicleDto } from "../../dtos/vehicle/create-vehicle.dto.js";
-import { Vehicle } from "../../../domain/entities/vehicle.entity.js";
-import type { IVehicleRepository } from "../../../domain/repositories/vehicle.repository.js";
-import { VehicleAlreadyExistsException } from "../../errors/common/vehicle-already-exists.exception.js";
+import type { CreateVehicleDto } from "@application/dtos/vehicle/create-vehicle.dto.js";
+import { Vehicle } from "@domain/entities/vehicle.entity.js";
+import type { IVehicleRepository } from "@domain/repositories/vehicle.repository.js";
+import { VehicleAlreadyExistsException } from "@application/errors/common/vehicle-already-exists.exception.js";
 
 export class CreateVehicleUseCase {
   constructor(private readonly vehicleRepository: IVehicleRepository) {}

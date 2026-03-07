@@ -1,13 +1,13 @@
-import { User } from "../../domain/entities/user.entity.js";
+import { User } from "@domain/entities/user.entity.js";
 import {
   type IUserRepository,
   type UserQueryOptions,
-} from "../../domain/repositories/user.repository.js";
-import type { PaginatedResult } from "../../domain/types/pagination.types.js";
-import { Gender } from "../../domain/value-objects/gender.js";
-import { Role } from "../../domain/value-objects/role.js";
-import { UserStatus } from "../../domain/value-objects/user-status.js";
-import { prismaClient } from "../database/prisma/prisma.client.js";
+} from "@domain/repositories/user.repository.js";
+import type { PaginatedResult } from "@domain/types/pagination.types.js";
+import { Gender } from "@domain/value-objects/gender.js";
+import { Role } from "@domain/value-objects/role.js";
+import { UserStatus } from "@domain/value-objects/user-status.js";
+import { prismaClient } from "@infrastructure/database/prisma/prisma.client.js";
 
 type PrismaUserRow = NonNullable<
   Awaited<ReturnType<typeof prismaClient.user.findUnique>>

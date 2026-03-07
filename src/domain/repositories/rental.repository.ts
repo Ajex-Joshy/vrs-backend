@@ -1,5 +1,5 @@
 import type { Rental } from "../entities/rental.entity.js";
-import type { PaginatedResult } from "../types/pagination.types.js";
+import type { PaginatedResult } from "@domain/types/pagination.types.js";
 import type { RentalStatus } from "../value-objects/rental-status.js";
 import type { IBaseRepository } from "./base.repository.js";
 

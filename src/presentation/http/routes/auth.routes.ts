@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { LoginDtoSchema } from "../../../application/dtos/auth/login.dto.js";
-import { RegisterDtoSchema } from "../../../application/dtos/auth/register.dto.js";
-import type { LoginUseCase } from "../../../application/usecases/auth/login.usecase.js";
-import type { RegisterUseCase } from "../../../application/usecases/auth/register.usecase.js";
-import type { JwtService } from "../../../infrastructure/auth/jwt.service.js";
-import { authenticate, authorize } from "../middlewares/auth.middleware.js";
-import type { AuthenticatedRequest } from "../types/authenticated-request.type.js";
+import { LoginDtoSchema } from "@application/dtos/auth/login.dto.js";
+import { RegisterDtoSchema } from "@application/dtos/auth/register.dto.js";
+import type { LoginUseCase } from "@application/usecases/auth/login.usecase.js";
+import type { RegisterUseCase } from "@application/usecases/auth/register.usecase.js";
+import type { JwtService } from "@infrastructure/auth/jwt.service.js";
+import { authenticate, authorize } from "@presentation/http/middlewares/auth.middleware.js";
+import type { AuthenticatedRequest } from "@presentation/http/types/authenticated-request.type.js";
 
 export const createAuthRouter = (
   registerUseCase: RegisterUseCase,

@@ -1,8 +1,8 @@
 import type { NextFunction, Request, Response } from "express";
-import type { JwtService } from "../../../infrastructure/auth/jwt.service.js";
-import { ForbiddenException } from "../errors/forbidden.exception.js";
-import { UnauthorizedException } from "../errors/unauthorized.exception.js";
-import type { AuthenticatedRequest } from "../types/authenticated-request.type.js";
+import type { JwtService } from "@infrastructure/auth/jwt.service.js";
+import { ForbiddenException } from "@presentation/http/errors/forbidden.exception.js";
+import { UnauthorizedException } from "@presentation/http/errors/unauthorized.exception.js";
+import type { AuthenticatedRequest } from "@presentation/http/types/authenticated-request.type.js";
 
 export const authenticate = (jwtService: JwtService) => {
   return (

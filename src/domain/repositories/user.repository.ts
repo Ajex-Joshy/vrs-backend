@@ -1,5 +1,5 @@
 import type { User } from "../entities/user.entity.js";
-import type { PaginatedResult } from "../types/pagination.types.js";
+import type { PaginatedResult } from "@domain/types/pagination.types.js";
 import type { Gender } from "../value-objects/gender.js";
 import type { UserStatus } from "../value-objects/user-status.js";
 import type { IBaseRepository } from "./base.repository.js";

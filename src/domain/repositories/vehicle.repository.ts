@@ -1,5 +1,5 @@
 import type { Vehicle } from "../entities/vehicle.entity.js";
-import type { PaginatedResult } from "../types/pagination.types.js";
+import type { PaginatedResult } from "@domain/types/pagination.types.js";
 import type { VehicleStatus } from "../value-objects/vehicle-status.js";
 import type { IBaseRepository } from "./base.repository.js";
 

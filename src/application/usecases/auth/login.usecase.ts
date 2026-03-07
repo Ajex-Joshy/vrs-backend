@@ -1,9 +1,9 @@
-import type { LoginDto } from "../../dtos/auth/login.dto.js";
-import { InvalidCredentialsException } from "../../errors/auth/invalid-credentials.exception.js";
-import { UserBlockedException } from "../../errors/auth/user-blocked.exception.js";
-import type { IUserRepository } from "../../../domain/repositories/user.repository.js";
-import type { JwtService } from "../../../infrastructure/auth/jwt.service.js";
-import type { PasswordService } from "../../../infrastructure/auth/password.service.js";
+import type { LoginDto } from "@application/dtos/auth/login.dto.js";
+import { InvalidCredentialsException } from "@application/errors/auth/invalid-credentials.exception.js";
+import { UserBlockedException } from "@application/errors/auth/user-blocked.exception.js";
+import type { IUserRepository } from "@domain/repositories/user.repository.js";
+import type { JwtService } from "@infrastructure/auth/jwt.service.js";
+import type { PasswordService } from "@infrastructure/auth/password.service.js";
 
 export class LoginUseCase {
   constructor(

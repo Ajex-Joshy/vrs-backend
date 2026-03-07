@@ -1,10 +1,10 @@
 import { randomUUID } from "node:crypto";
-import type { CreatePaymentDto } from "../../dtos/payment/create-payment.dto.js";
-import { ResourceNotFoundException } from "../../errors/common/resource-not-found.exception.js";
-import { Payment } from "../../../domain/entities/payment.entity.js";
-import type { ILogRepository } from "../../../domain/repositories/log.repository.js";
-import type { IPaymentRepository } from "../../../domain/repositories/payment.repository.js";
-import type { IRentalRepository } from "../../../domain/repositories/rental.repository.js";
+import type { CreatePaymentDto } from "@application/dtos/payment/create-payment.dto.js";
+import { ResourceNotFoundException } from "@application/errors/common/resource-not-found.exception.js";
+import { Payment } from "@domain/entities/payment.entity.js";
+import type { ILogRepository } from "@domain/repositories/log.repository.js";
+import type { IPaymentRepository } from "@domain/repositories/payment.repository.js";
+import type { IRentalRepository } from "@domain/repositories/rental.repository.js";
 
 export class CreatePaymentUseCase {
   constructor(

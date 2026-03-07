@@ -1,5 +1,5 @@
 import type { Payment } from "../entities/payment.entity.js";
-import type { PaginatedResult } from "../types/pagination.types.js";
+import type { PaginatedResult } from "@domain/types/pagination.types.js";
 import type { IBaseRepository } from "./base.repository.js";
 
 export const paymentSortableFields = ["amount", "createdAt"] as const;

@@ -10,6 +10,9 @@
       "@domain/*": ["domain/*"],
       "@application/*": ["application/*"],
       "@infrastructure/*": ["infrastructure/*"],
+      "@presentation/*": ["presentation/*"],
+      "@config/*": ["config/*"],
+      "@shared/*": ["shared/*"],
       "@interfaces/*": ["interfaces/*"]
     },
 

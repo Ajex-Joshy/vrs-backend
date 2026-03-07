@@ -1,6 +1,6 @@
-import type { VehicleQueryDto } from "../../dtos/vehicle/vehicle-query.dto.js";
-import type { IVehicleRepository } from "../../../domain/repositories/vehicle.repository.js";
-import { VehicleStatus } from "../../../domain/value-objects/vehicle-status.js";
+import type { VehicleQueryDto } from "@application/dtos/vehicle/vehicle-query.dto.js";
+import type { IVehicleRepository } from "@domain/repositories/vehicle.repository.js";
+import { VehicleStatus } from "@domain/value-objects/vehicle-status.js";
 
 const toVehicleStatus = (value: "AVAILABLE" | "RENTED" | "MAINTENANCE") => {
   switch (value) {

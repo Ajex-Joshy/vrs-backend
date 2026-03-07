@@ -1,21 +1,21 @@
 import express from "express";
-import { env } from "./config/env.config.js";
-import { LoginUseCase } from "./application/usecases/auth/login.usecase.js";
-import { RegisterUseCase } from "./application/usecases/auth/register.usecase.js";
-import { JwtService } from "./infrastructure/auth/jwt.service.js";
-import { PasswordService } from "./infrastructure/auth/password.service.js";
+import { env } from "@config/env.config.js";
+import { LoginUseCase } from "@application/usecases/auth/login.usecase.js";
+import { RegisterUseCase } from "@application/usecases/auth/register.usecase.js";
+import { JwtService } from "@infrastructure/auth/jwt.service.js";
+import { PasswordService } from "@infrastructure/auth/password.service.js";
 import {
   connectMongo,
   disconnectMongo,
-} from "./infrastructure/database/mongoose/mongoose.client.js";
+} from "@infrastructure/database/mongoose/mongoose.client.js";
 import {
   connectPrisma,
   disconnectPrisma,
-} from "./infrastructure/database/prisma/prisma.client.js";
-import { MongooseLogRepository } from "./infrastructure/repositories/mongoose-log.repository.js";
-import { PrismaUserRepository } from "./infrastructure/repositories/prisma-user.repository.js";
-import { errorHandlerMiddleware } from "./presentation/http/middlewares/error-handler.middleware.js";
-import { createAuthRouter } from "./presentation/http/routes/auth.routes.js";
+} from "@infrastructure/database/prisma/prisma.client.js";
+import { MongooseLogRepository } from "@infrastructure/repositories/mongoose-log.repository.js";
+import { PrismaUserRepository } from "@infrastructure/repositories/prisma-user.repository.js";
+import { errorHandlerMiddleware } from "@presentation/http/middlewares/error-handler.middleware.js";
+import { createAuthRouter } from "@presentation/http/routes/auth.routes.js";
 
 const app = express();
 const userRepository = new PrismaUserRepository();

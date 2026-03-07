@@ -1,9 +1,9 @@
 import type { ErrorRequestHandler } from "express";
 import { ZodError } from "zod";
-import type { ILogRepository } from "../../../domain/repositories/log.repository.js";
-import { AppException } from "../../../shared/errors/app.exception.js";
-import { ErrorCodes } from "../../../shared/errors/error-codes.js";
-import { ErrorMessages } from "../../../shared/errors/error-messages.js";
+import type { ILogRepository } from "@domain/repositories/log.repository.js";
+import { AppException } from "@shared/errors/app.exception.js";
+import { ErrorCodes } from "@shared/errors/error-codes.js";
+import { ErrorMessages } from "@shared/errors/error-messages.js";
 
 export const errorHandlerMiddleware = (
   logRepository?: ILogRepository,
