@@ -111,6 +111,41 @@ export class Vehicle {
     this._updatedAt = new Date();
   }
 
+  updateDetails(data: {
+    name?: string;
+    brand?: string;
+    model?: string;
+    pricePerDay?: number;
+  }): void {
+    if (data.name !== undefined) {
+      if (!data.name.trim()) {
+        throw new Error("Vehicle name is required");
+      }
+      this._name = data.name.trim();
+    }
+
+    if (data.brand !== undefined) {
+      if (!data.brand.trim()) {
+        throw new Error("Vehicle brand is required");
+      }
+      this._brand = data.brand.trim();
+    }
+
+    if (data.model !== undefined) {
+      if (!data.model.trim()) {
+        throw new Error("Vehicle model is required");
+      }
+      this._model = data.model.trim();
+    }
+
+    if (data.pricePerDay !== undefined) {
+      this.updatePrice(data.pricePerDay);
+      return;
+    }
+
+    this._updatedAt = new Date();
+  }
+
   toPrimitives() {
     return {
       id: this._id,

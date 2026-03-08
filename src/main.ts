@@ -8,6 +8,7 @@ import { ListRentalsUseCase } from "@application/usecases/rental/list-rentals.us
 import { ReturnVehicleUseCase } from "@application/usecases/rental/return-vehicle.usecase.js";
 import { CreateVehicleUseCase } from "@application/usecases/vehicle/create-vehicle.usecase.js";
 import { ListVehiclesUseCase } from "@application/usecases/vehicle/list-vehicles.usecase.js";
+import { UpdateVehicleUseCase } from "@application/usecases/vehicle/update-vehicle.usecase.js";
 import { env } from "@config/env.config.js";
 import { LoginUseCase } from "@application/usecases/auth/login.usecase.js";
 import { RegisterUseCase } from "@application/usecases/auth/register.usecase.js";
@@ -57,6 +58,7 @@ const loginUseCase = new LoginUseCase(
 );
 const createVehicleUseCase = new CreateVehicleUseCase(vehicleRepository);
 const listVehiclesUseCase = new ListVehiclesUseCase(vehicleRepository);
+const updateVehicleUseCase = new UpdateVehicleUseCase(vehicleRepository);
 const createRentalUseCase = new CreateRentalUseCase(
   rentalRepository,
   vehicleRepository,
@@ -84,7 +86,12 @@ const listPaymentsUseCase = new ListPaymentsUseCase(paymentRepository);
 app.use("/auth", createAuthRouter(registerUseCase, loginUseCase, jwtService));
 app.use(
   "/vehicles",
-  createVehicleRouter(createVehicleUseCase, listVehiclesUseCase, jwtService),
+  createVehicleRouter(
+    createVehicleUseCase,
+    listVehiclesUseCase,
+    updateVehicleUseCase,
+    jwtService,
+  ),
 );
 app.use(
   "/rentals",

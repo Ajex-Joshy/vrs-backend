@@ -74,9 +74,9 @@ const run = async () => {
     method: "POST",
     headers: { Authorization: `Bearer ${adminToken}` },
     body: JSON.stringify({
-      name: "Smoke Sedan",
-      brand: "SmokeBrand",
-      model: "S1",
+      name: "Toyota Camry",
+      brand: "Toyota",
+      model: "Camry",
       registrationNumber,
       pricePerDay: 49.99,
     }),

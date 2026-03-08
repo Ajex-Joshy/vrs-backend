@@ -1,10 +1,17 @@
 import { VehicleQueryDtoSchema } from "@application/dtos/vehicle/vehicle-query.dto.js";
 import { CreateVehicleDtoSchema } from "@application/dtos/vehicle/create-vehicle.dto.js";
+import { UpdateVehicleDtoSchema } from "@application/dtos/vehicle/update-vehicle.dto.js";
 import { CreateVehicleUseCase } from "@application/usecases/vehicle/create-vehicle.usecase.js";
 import { ListVehiclesUseCase } from "@application/usecases/vehicle/list-vehicles.usecase.js";
+import { UpdateVehicleUseCase } from "@application/usecases/vehicle/update-vehicle.usecase.js";
 import type { JwtService } from "@infrastructure/auth/jwt.service.js";
 import { authenticate, authorize } from "@presentation/http/middlewares/auth.middleware.js";
 import { Router } from "express";
+import { z } from "zod";
+
+const vehicleIdParamSchema = z.object({
+  vehicleId: z.string().trim().min(1),
+});
 
 const toArray = (value: unknown): string[] | undefined => {
   if (value === undefined) return undefined;
@@ -18,6 +25,7 @@ const toArray = (value: unknown): string[] | undefined => {
 export const createVehicleRouter = (
   createVehicleUseCase: CreateVehicleUseCase,
   listVehiclesUseCase: ListVehiclesUseCase,
+  updateVehicleUseCase: UpdateVehicleUseCase,
   jwtService: JwtService,
 ) => {
   const router = Router();
@@ -37,7 +45,7 @@ export const createVehicleRouter = (
     },
   );
 
-  router.get("/", authenticate(jwtService), async (request, response, next) => {
+  router.get("/", async (request, response, next) => {
     try {
       const parsedDto = VehicleQueryDtoSchema.parse({
         page: request.query.page ?? 1,
@@ -55,6 +63,22 @@ export const createVehicleRouter = (
       next(error);
     }
   });
+
+  router.patch(
+    "/:vehicleId",
+    authenticate(jwtService),
+    authorize("ADMIN"),
+    async (request, response, next) => {
+      try {
+        const { vehicleId } = vehicleIdParamSchema.parse(request.params);
+        const parsedDto = UpdateVehicleDtoSchema.parse(request.body);
+        const result = await updateVehicleUseCase.execute(vehicleId, parsedDto);
+        response.status(200).json({ ok: true, data: result });
+      } catch (error) {
+        next(error);
+      }
+    },
+  );
 
   return router;
 };
