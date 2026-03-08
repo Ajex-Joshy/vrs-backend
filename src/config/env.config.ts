@@ -9,6 +9,8 @@ const envSchema = z.object({
   MONGODB_DB_NAME: z.string().min(1).default("vehicle_rental_logs"),
   JWT_SECRET: z.string().min(1, "JWT_SECRET is required"),
   JWT_EXPIRES_IN: z.string().default("1d"),
+  RAZORPAY_TEST_API_KEY: z.string().default(""),
+  RAZORPAY_TEST_SECRET_KEY: z.string().default(""),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);

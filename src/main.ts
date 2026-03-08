@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { CreatePaymentUseCase } from "@application/usecases/payment/create-payment.usecase.js";
 import { ListPaymentsUseCase } from "@application/usecases/payment/list-payments.usecase.js";
 import { CancelRentalUseCase } from "@application/usecases/rental/cancel-rental.usecase.js";
@@ -39,6 +40,13 @@ const paymentRepository = new PrismaPaymentRepository();
 const logRepository = new MongooseLogRepository();
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 const passwordService = new PasswordService();
 const jwtService = new JwtService();
 const registerUseCase = new RegisterUseCase(userRepository, passwordService);

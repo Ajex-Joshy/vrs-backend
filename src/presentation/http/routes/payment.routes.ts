@@ -2,6 +2,7 @@ import { CreatePaymentDtoSchema } from "@application/dtos/payment/create-payment
 import { PaymentQueryDtoSchema } from "@application/dtos/payment/payment-query.dto.js";
 import { CreatePaymentUseCase } from "@application/usecases/payment/create-payment.usecase.js";
 import { ListPaymentsUseCase } from "@application/usecases/payment/list-payments.usecase.js";
+import { env } from "@config/env.config.js";
 import type { JwtService } from "@infrastructure/auth/jwt.service.js";
 import { authenticate } from "@presentation/http/middlewares/auth.middleware.js";
 import type { AuthenticatedRequest } from "@presentation/http/types/authenticated-request.type.js";
@@ -13,6 +14,15 @@ export const createPaymentRouter = (
   jwtService: JwtService,
 ) => {
   const router = Router();
+
+  router.get("/checkout/key", authenticate(jwtService), (_request, response) => {
+    response.status(200).json({
+      ok: true,
+      data: {
+        keyId: env.RAZORPAY_TEST_API_KEY,
+      },
+    });
+  });
 
   router.post("/", authenticate(jwtService), async (request, response, next) => {
     try {
