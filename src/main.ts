@@ -7,6 +7,7 @@ import { CreateRentalUseCase } from "@application/usecases/rental/create-rental.
 import { ListRentalsUseCase } from "@application/usecases/rental/list-rentals.usecase.js";
 import { ReturnVehicleUseCase } from "@application/usecases/rental/return-vehicle.usecase.js";
 import { CreateVehicleUseCase } from "@application/usecases/vehicle/create-vehicle.usecase.js";
+import { DeleteVehicleUseCase } from "@application/usecases/vehicle/delete-vehicle.usecase.js";
 import { ListVehiclesUseCase } from "@application/usecases/vehicle/list-vehicles.usecase.js";
 import { UpdateVehicleUseCase } from "@application/usecases/vehicle/update-vehicle.usecase.js";
 import { env } from "@config/env.config.js";
@@ -43,7 +44,18 @@ const logRepository = new MongooseLogRepository();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+    origin: (origin, callback) => {
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+
+      const isLocalOrigin =
+        /^https?:\/\/localhost(?::\d+)?$/.test(origin) ||
+        /^https?:\/\/127\.0\.0\.1(?::\d+)?$/.test(origin);
+
+      callback(isLocalOrigin ? null : new Error("Not allowed by CORS"), isLocalOrigin);
+    },
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
@@ -59,6 +71,7 @@ const loginUseCase = new LoginUseCase(
 const createVehicleUseCase = new CreateVehicleUseCase(vehicleRepository);
 const listVehiclesUseCase = new ListVehiclesUseCase(vehicleRepository);
 const updateVehicleUseCase = new UpdateVehicleUseCase(vehicleRepository);
+const deleteVehicleUseCase = new DeleteVehicleUseCase(vehicleRepository);
 const createRentalUseCase = new CreateRentalUseCase(
   rentalRepository,
   vehicleRepository,
@@ -90,6 +103,7 @@ app.use(
     createVehicleUseCase,
     listVehiclesUseCase,
     updateVehicleUseCase,
+    deleteVehicleUseCase,
     jwtService,
   ),
 );

@@ -23,9 +23,17 @@ export const errorHandlerMiddleware = (
         ...(statusCode >= 500 ? { metadata: { source: "error-handler" } } : {}),
       };
 
-      await logRepository?.logError({
-        ...errorLogPayload,
-      });
+      try {
+        await logRepository?.logError({
+          ...errorLogPayload,
+        });
+      } catch (logError) {
+        // Logging must never mask the original request error response.
+        console.error(
+          "Failed to persist error log",
+          logError instanceof Error ? logError.message : logError,
+        );
+      }
     }
 
     if (error instanceof ZodError) {

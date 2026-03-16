@@ -2,7 +2,9 @@ import "dotenv/config";
 import { z } from "zod";
 
 const envSchema = z.object({
-  NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
+  NODE_ENV: z
+    .enum(["development", "test", "production"])
+    .default("development"),
   PORT: z.coerce.number().int().min(1).max(65535).default(3000),
   MYSQL_DATABASE_URL: z.string().min(1, "MYSQL_DATABASE_URL is required"),
   MONGODB_URI: z.string().min(1, "MONGODB_URI is required"),

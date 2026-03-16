@@ -24,7 +24,9 @@ export class ListVehiclesUseCase {
       sortOrder: input.sortOrder,
       ...(input.search ? { search: input.search } : {}),
       ...(input.brand ? { brand: input.brand } : {}),
-      ...(input.status?.length ? { status: input.status.map(toVehicleStatus) } : {}),
+      ...(input.status?.length
+        ? { status: input.status.map(toVehicleStatus) }
+        : {}),
     };
 
     const result = await this.vehicleRepository.findMany(options);

@@ -2,6 +2,7 @@ import { VehicleQueryDtoSchema } from "@application/dtos/vehicle/vehicle-query.d
 import { CreateVehicleDtoSchema } from "@application/dtos/vehicle/create-vehicle.dto.js";
 import { UpdateVehicleDtoSchema } from "@application/dtos/vehicle/update-vehicle.dto.js";
 import { CreateVehicleUseCase } from "@application/usecases/vehicle/create-vehicle.usecase.js";
+import { DeleteVehicleUseCase } from "@application/usecases/vehicle/delete-vehicle.usecase.js";
 import { ListVehiclesUseCase } from "@application/usecases/vehicle/list-vehicles.usecase.js";
 import { UpdateVehicleUseCase } from "@application/usecases/vehicle/update-vehicle.usecase.js";
 import type { JwtService } from "@infrastructure/auth/jwt.service.js";
@@ -26,6 +27,7 @@ export const createVehicleRouter = (
   createVehicleUseCase: CreateVehicleUseCase,
   listVehiclesUseCase: ListVehiclesUseCase,
   updateVehicleUseCase: UpdateVehicleUseCase,
+  deleteVehicleUseCase: DeleteVehicleUseCase,
   jwtService: JwtService,
 ) => {
   const router = Router();
@@ -74,6 +76,21 @@ export const createVehicleRouter = (
         const parsedDto = UpdateVehicleDtoSchema.parse(request.body);
         const result = await updateVehicleUseCase.execute(vehicleId, parsedDto);
         response.status(200).json({ ok: true, data: result });
+      } catch (error) {
+        next(error);
+      }
+    },
+  );
+
+  router.delete(
+    "/:vehicleId",
+    authenticate(jwtService),
+    authorize("ADMIN"),
+    async (request, response, next) => {
+      try {
+        const { vehicleId } = vehicleIdParamSchema.parse(request.params);
+        await deleteVehicleUseCase.execute(vehicleId);
+        response.status(200).json({ ok: true, data: { deleted: true } });
       } catch (error) {
         next(error);
       }
